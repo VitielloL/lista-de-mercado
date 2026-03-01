@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lista de Mercado</title>
+  <!-- Favicon with emoji -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='24' font-size='24'>🛒</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>🛒 Lista de Mercado</h1>
+
+<div class="input-group">
+  <input type="text" id="itemInput" placeholder="Adicionar item">
+  <button onclick="addItem()">+</button>
+</div>
+
+<ul id="shoppingList"></ul>
+
+<div class="total-bar">
+  Total: R$ <span id="totalValue">0.00</span>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
