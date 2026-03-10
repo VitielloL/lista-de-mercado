@@ -1,10 +1,17 @@
 const defaultItems = [
-  "Alcatra, músculo, acém ou patinho moída 1kg",
+  // AÇOUGUE / CARNES
   "Contra filé",
+  // "Alcatra, músculo, acém ou patinho moída 1kg",
   "Filé mignon suíno",
+  "Linguiça toscana",
+  "Salsicha",
   "Peito de frango",
-  // "Suco em pó",
+
+  // PEIXES
   "Filé de tilápia",
+  "Salmão",
+
+  // HORTIFRUTI
   "Alface",
   "Tomate",
   "Cebola",
@@ -12,48 +19,72 @@ const defaultItems = [
   "Abobrinha",
   "Pepino",
   "Alho",
+  "Limão",
   // "Uva",
   // "Morango",
   // "Mamão",
-  "Limão",
+
+  // OVOS
   "Ovos",
-  // "Farinha para empanar",
+
+  // LATICÍNIOS / GELADEIRA
   "Leite",
-  // "Queijo mussarela",
   "Iogurte integral",
   "Requeijão",
+  // "Queijo mussarela",
   // "Manteiga",
-  // "Toddy",
+  "Creme de leite",
+  "Leite condensado",
+
+  // PADARIA
   "Pão de forma",
   "Levs Magic Toast",
+
+  // MERCEARIA
   "Maionese",
   "Ketchup",
-  "Morango congelado",
   "Óleo",
-  // "Batata frita",
-  "Nuggets",
-  "Cebola para fritar",
   "Vinagre",
-  "Sabonete",
-  // "Sabonete líquido",
-  "Sabão em pó",
-  "Bucha de vasilha",
-  "Pasta de dente",
-  "Detergente",
+  "Alho torrado",
+  "Atum em lata",
+  "Sucrilhos",
+  // "Farinha para empanar",
+  // "Toddy",
+  // "Suco em pó",
+
+  // CONGELADOS
+  "Morango congelado",
+  "Nuggets",
+  // "Batata frita",
+
+  // BEBIDAS
   "Refrigerante",
-  "Pastilha de vaso",
-  "Aperol",
   "Coca Zero",
   "Sprite Zero 2L",
-  "Papel higiênico",
-  "Papel toalha",
-  "Alho torrado",
-  "Salmão",
+
+  // HIGIENE PESSOAL
+  "Sabonete",
+  // "Sabonete líquido",
+  "Pasta de dente",
+  "Enxaguante bucal",
+
+  // LIMPEZA
+  "Detergente",
+  "Bucha de vasilha",
+  "Sabão em pó",
   "Amaciante",
   "Desinfetante",
-  "Sucrilhos",
-  "Multiuso"  
+  "Multiuso",
+  "Pastilha de vaso",
+
+  // PAPELARIA / DESCARTÁVEIS
+  "Papel higiênico",
+  "Papel toalha",
+
+  // BEBIDA ALCOÓLICA
+  "Aperol",
 ];
+
 
 function createItem(name) {
   const li = document.createElement("li");
