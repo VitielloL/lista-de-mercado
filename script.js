@@ -49,7 +49,10 @@ const defaultItems = [
   "Papel toalha",
   "Alho torrado",
   "Salmão",
-  "Sucrilhos",  
+  "Amaciante",
+  "Desinfetante",
+  "Sucrilhos",
+  "Multiuso"  
 ];
 
 function createItem(name) {
