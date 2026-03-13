@@ -1,7 +1,7 @@
 const defaultItems = [
   // AÇOUGUE / CARNES
   "Contra filé",
-  // "Alcatra, músculo, acém ou patinho moída 1kg",
+  "Alcatra, músculo, acém ou patinho moída 1kg",
   "Filé mignon suíno",
   "Linguiça toscana",
   "Salsicha",
@@ -19,10 +19,12 @@ const defaultItems = [
   "Abobrinha",
   "Pepino",
   "Alho",
+  "Alho poró",
   "Limão",
-  // "Uva",
-  // "Morango",
-  // "Mamão",
+  "Banana da terra",
+  "Uva",
+  "Morango",
+  "Mamão",
 
   // OVOS
   "Ovos",
@@ -31,30 +33,38 @@ const defaultItems = [
   "Leite",
   "Iogurte integral",
   "Requeijão",
-  // "Queijo mussarela",
-  // "Manteiga",
+  "Queijo mussarela",
+  "Manteiga",
   "Creme de leite",
   "Leite condensado",
 
   // PADARIA
   "Pão de forma",
+  "Bisnaguinha",
   "Levs Magic Toast",
 
   // MERCEARIA
   "Maionese",
+  "Maionese premium",
   "Ketchup",
+  "Molho premium",
+  "Chimichurri",
   "Óleo",
   "Vinagre",
   "Alho torrado",
   "Atum em lata",
   "Sucrilhos",
-  // "Farinha para empanar",
-  // "Toddy",
+  "Pipoca de microondas",
+  "Milho de pipoca",
+  "Farinha para empanar",
+  "Toddy",
   // "Suco em pó",
 
   // CONGELADOS
   "Morango congelado",
   "Nuggets",
+  "Anel de cebola",
+  "Bolinho de bacalhau",
   // "Batata frita",
 
   // BEBIDAS
@@ -64,7 +74,8 @@ const defaultItems = [
 
   // HIGIENE PESSOAL
   "Sabonete",
-  // "Sabonete líquido",
+  "Desodorante",
+  "Sabonete líquido",
   "Pasta de dente",
   "Enxaguante bucal",
 
@@ -84,7 +95,6 @@ const defaultItems = [
   // BEBIDA ALCOÓLICA
   "Aperol",
 ];
-
 
 function createItem(name) {
   const li = document.createElement("li");
