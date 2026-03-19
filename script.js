@@ -58,14 +58,12 @@ const defaultItems = [
   "Milho de pipoca",
   "Farinha para empanar",
   "Toddy",
-  // "Suco em pó",
 
   // CONGELADOS
   "Morango congelado",
   "Nuggets",
   "Anel de cebola",
   "Bolinho de bacalhau",
-  // "Batata frita",
 
   // BEBIDAS
   "Refrigerante",
@@ -100,7 +98,7 @@ function createItem(name) {
   const li = document.createElement("li");
 
   li.innerHTML = `
-    <input type="checkbox" onchange="toggleItem(this); calculateTotal()">
+    <input type="checkbox" disabled onchange="toggleItem(this); calculateTotal()">
     
     <input 
       type="number" 
@@ -108,7 +106,7 @@ function createItem(name) {
       placeholder="R$" 
       step="0.01" 
       min="0"
-      onchange="calculateTotal()"
+      oninput="handleInputChange(this)"
     >
 
     <input 
@@ -116,7 +114,7 @@ function createItem(name) {
       class="qty" 
       value="1"
       min="1"
-      onchange="calculateTotal()"
+      oninput="handleInputChange(this)"
     >
 
     <span class="item-name">${name}</span>
@@ -125,17 +123,32 @@ function createItem(name) {
   `;
 
   document.getElementById("shoppingList").appendChild(li);
+
+  sortList();
 }
 
 function toggleItem(checkbox) {
   const li = checkbox.parentElement;
+
+  const price = parseFloat(li.querySelector(".price").value);
+  const qty = parseInt(li.querySelector(".qty").value);
+
+  // Segurança extra
+  if (!(price > 0 && qty >= 1)) {
+    checkbox.checked = false;
+    return;
+  }
+
   li.classList.toggle("checked", checkbox.checked);
+
+  sortList();
 }
 
 function addItem() {
   const input = document.getElementById("itemInput");
   const itemName = input.value.trim();
   if (!itemName) return;
+
   createItem(itemName);
   input.value = "";
 }
@@ -164,4 +177,59 @@ function calculateTotal() {
   document.getElementById("totalValue").textContent = total.toFixed(2);
 }
 
+// 🔥 VALIDAÇÃO
+function validateItem(li) {
+  const checkbox = li.querySelector("input[type='checkbox']");
+  const priceInput = li.querySelector(".price");
+  const qtyInput = li.querySelector(".qty");
+
+  const price = parseFloat(priceInput.value);
+  const qty = parseInt(qtyInput.value);
+
+  const isValid = price > 0 && qty >= 1;
+
+  checkbox.disabled = !isValid;
+
+  if (!isValid) {
+    checkbox.checked = false;
+    li.classList.remove("checked");
+  }
+}
+
+// 🔥 DISPARA VALIDAÇÃO
+function handleInputChange(input) {
+  const li = input.parentElement;
+
+  validateItem(li);
+  calculateTotal();
+}
+
+// 🔥 ORDENAÇÃO
+function sortList() {
+  const list = document.getElementById("shoppingList");
+  const items = Array.from(list.querySelectorAll("li"));
+
+  items.sort((a, b) => {
+    const aChecked = a.querySelector("input[type='checkbox']").checked;
+    const bChecked = b.querySelector("input[type='checkbox']").checked;
+
+    // Não marcados primeiro
+    if (aChecked !== bChecked) {
+      return aChecked - bChecked;
+    }
+
+    // Marcados em ordem alfabética
+    if (aChecked && bChecked) {
+      const nameA = a.querySelector(".item-name").textContent.toLowerCase();
+      const nameB = b.querySelector(".item-name").textContent.toLowerCase();
+      return nameA.localeCompare(nameB);
+    }
+
+    return 0;
+  });
+
+  items.forEach(item => list.appendChild(item));
+}
+
+// Inicializa lista
 defaultItems.forEach(item => createItem(item));
