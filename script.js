@@ -4,7 +4,8 @@ const defaultItems = [
   "Alcatra, músculo, acém ou patinho moída 1kg",
   "Filé mignon suíno",
   "Linguiça toscana",
-  "Salsicha",
+  // "Salsicha",
+  "Calabresa",
   "Peito de frango",
 
   // PEIXES
@@ -34,14 +35,16 @@ const defaultItems = [
   "Iogurte integral",
   "Requeijão",
   "Queijo mussarela",
-  "Manteiga",
+  // "Manteiga",
   "Creme de leite",
   "Leite condensado",
+  "Creme Cheese",
 
   // PADARIA
   "Pão de forma",
   "Bisnaguinha",
   "Levs Magic Toast",
+  "Levs Magic Toast Cacau",
 
   // MERCEARIA
   "Maionese",
@@ -49,13 +52,15 @@ const defaultItems = [
   "Ketchup",
   "Molho premium",
   "Chimichurri",
-  "Óleo",
-  "Vinagre",
-  "Alho torrado",
+  "Pimenta do Reino",
+  "Curry",
+  // "Óleo",
+  // "Vinagre",
+  // "Alho torrado",
   "Atum em lata",
   "Sucrilhos",
   "Pipoca de microondas",
-  "Milho de pipoca",
+  // "Milho de pipoca",
   "Farinha para empanar",
   "Toddy",
 
@@ -71,24 +76,24 @@ const defaultItems = [
   "Sprite Zero 2L",
 
   // HIGIENE PESSOAL
-  "Sabonete",
-  "Desodorante",
+  // "Sabonete",
+  // "Desodorante",
   "Sabonete líquido",
-  "Pasta de dente",
-  "Enxaguante bucal",
+  // "Pasta de dente",
+  // "Enxaguante bucal",
 
   // LIMPEZA
-  "Detergente",
+  // "Detergente",
   "Bucha de vasilha",
-  "Sabão em pó",
-  "Amaciante",
-  "Desinfetante",
+  // "Sabão em pó",
+  // "Amaciante",
+  // "Desinfetante",
   "Multiuso",
-  "Pastilha de vaso",
+  // "Pastilha de vaso",
 
   // PAPELARIA / DESCARTÁVEIS
   "Papel higiênico",
-  "Papel toalha",
+  // "Papel toalha",
 
   // BEBIDA ALCOÓLICA
   "Aperol",
