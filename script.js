@@ -1,102 +1,67 @@
 const defaultItems = [
-  // AÇOUGUE / CARNES
-  "Contra filé",
-  "Alcatra, músculo, acém ou patinho moída 1kg",
-  "Filé mignon suíno",
-  "Linguiça toscana",
-  // "Salsicha",
-  "Calabresa",
-  "Peito de frango",
-
-  // PEIXES
-  "Filé de tilápia",
-  "Salmão",
-
-  // HORTIFRUTI
-  "Alface",
-  "Tomate",
-  "Cebola",
-  "Batata",
   "Abobrinha",
-  "Pepino",
+  "Alcatra, músculo, acém ou patinho moída 1kg",
+  "Alface",
   "Alho",
   "Alho poró",
-  "Limão",
+  "Anel de cebola",
+  "Aperol",
+  "Atum em lata",
   "Banana da terra",
-  "Uva",
-  "Morango",
-  "Mamão",
-
-  // OVOS
-  "Ovos",
-
-  // LATICÍNIOS / GELADEIRA
-  "Leite",
-  "Iogurte integral",
-  "Requeijão",
-  "Queijo mussarela",
-  // "Manteiga",
-  "Creme de leite",
-  "Leite condensado",
-  "Creme Cheese",
-
-  // PADARIA
-  "Pão de forma",
+  "Barra de chocolate",
+  "Batata",
   "Bisnaguinha",
+  "Bolinho de bacalhau",
+  "Bucha de vasilha",
+  "Calabresa",
+  "Cebola",
+  "Chimichurri",
+  "Coca Zero",
+  "Contra filé",
+  "Creme Cheese",
+  "Creme de leite",
+  "Curry",
+  "Farinha para empanar",
+  "Filé de tilápia",
+  "Filé mignon suíno",
+  "Inseticida",
+  "Iogurte integral",
+  "Ketchup",
+  "Leite",
+  "Leite condensado",
+  "Leite em pó",
   "Levs Magic Toast",
   "Levs Magic Toast Cacau",
-
-  // MERCEARIA
+  "Linguiça toscana",
+  "Limão",
   "Maionese",
   "Maionese premium",
-  "Ketchup",
+  "Mamão",
   "Molho premium",
-  "Chimichurri",
-  "Pimenta do Reino",
-  "Curry",
-  // "Óleo",
-  // "Vinagre",
-  // "Alho torrado",
-  "Atum em lata",
-  "Sucrilhos",
-  "Pipoca de microondas",
-  // "Milho de pipoca",
-  "Farinha para empanar",
-  "Toddy",
-
-  // CONGELADOS
+  "Morango",
   "Morango congelado",
-  "Nuggets",
-  "Anel de cebola",
-  "Bolinho de bacalhau",
-
-  // BEBIDAS
-  "Refrigerante",
-  "Coca Zero",
-  "Sprite Zero 2L",
-
-  // HIGIENE PESSOAL
-  // "Sabonete",
-  // "Desodorante",
-  "Sabonete líquido",
-  // "Pasta de dente",
-  // "Enxaguante bucal",
-
-  // LIMPEZA
-  // "Detergente",
-  "Bucha de vasilha",
-  // "Sabão em pó",
-  // "Amaciante",
-  // "Desinfetante",
   "Multiuso",
-  // "Pastilha de vaso",
-
-  // PAPELARIA / DESCARTÁVEIS
+  "Nuggets",
+  "Ovos",
+  "Pão de forma",
   "Papel higiênico",
-  // "Papel toalha",
-
-  // BEBIDA ALCOÓLICA
-  "Aperol",
+  "Peito de frango",
+  "Pepino",
+  "Pimenta do Reino",
+  "Pipoca de microondas",
+  "Pizza",
+  "Queijo mussarela",
+  "Refrigerante",
+  "Repolho",
+  "Repelente",
+  "Requeijão",
+  "Salmão",
+  "Sabonete líquido",
+  "Sprite Zero 2L",
+  "Sucrilhos",
+  "Toddy",
+  "Tomate",
+  "Uva"
 ];
 
 function createItem(name) {
@@ -138,7 +103,6 @@ function toggleItem(checkbox) {
   const price = parseFloat(li.querySelector(".price").value);
   const qty = parseInt(li.querySelector(".qty").value);
 
-  // Segurança extra
   if (!(price > 0 && qty >= 1)) {
     checkbox.checked = false;
     return;
@@ -209,7 +173,29 @@ function handleInputChange(input) {
   calculateTotal();
 }
 
-// 🔥 ORDENAÇÃO
+function filterItems() {
+  const search = document
+    .getElementById("searchInput")
+    .value.toLowerCase();
+
+  const items = document.querySelectorAll("#shoppingList li");
+
+  items.forEach(item => {
+    const name = item
+      .querySelector(".item-name")
+      .textContent
+      .toLowerCase();
+
+    if (name.includes(search)) {
+      item.style.display = "flex";
+    } else {
+      item.style.display = "none";
+    }
+  });
+}
+
+
+// 🔥 ORDENAÇÃO MELHORADA
 function sortList() {
   const list = document.getElementById("shoppingList");
   const items = Array.from(list.querySelectorAll("li"));
@@ -218,23 +204,22 @@ function sortList() {
     const aChecked = a.querySelector("input[type='checkbox']").checked;
     const bChecked = b.querySelector("input[type='checkbox']").checked;
 
+    const nameA = a.querySelector(".item-name").textContent.toLowerCase();
+    const nameB = b.querySelector(".item-name").textContent.toLowerCase();
+
     // Não marcados primeiro
     if (aChecked !== bChecked) {
       return aChecked - bChecked;
     }
 
-    // Marcados em ordem alfabética
-    if (aChecked && bChecked) {
-      const nameA = a.querySelector(".item-name").textContent.toLowerCase();
-      const nameB = b.querySelector(".item-name").textContent.toLowerCase();
-      return nameA.localeCompare(nameB);
-    }
-
-    return 0;
+    // Ordem alfabética
+    return nameA.localeCompare(nameB, "pt-BR");
   });
 
   items.forEach(item => list.appendChild(item));
 }
 
-// Inicializa lista
-defaultItems.forEach(item => createItem(item));
+// 🔥 Inicializa já ordenado
+defaultItems
+  .sort((a, b) => a.localeCompare(b, "pt-BR"))
+  .forEach(item => createItem(item));
