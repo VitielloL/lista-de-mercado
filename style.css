@@ -40,6 +40,16 @@ ul {
   margin-bottom: 90px;
 }
 
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 15px;
+}
+
+.button-group button {
+  width: 100%;
+}
+
 li {
   background: white;
   padding: 12px;

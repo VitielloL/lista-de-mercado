@@ -64,7 +64,10 @@ const defaultItems = [
   "Uva"
 ];
 
-function createItem(name) {
+const STORAGE_KEY = "shoppingListData";
+
+function createItem(itemData = {}) {
+  const { name, price = "", qty = 1, checked = false } = itemData;
   const li = document.createElement("li");
 
   li.innerHTML = `
@@ -92,8 +95,18 @@ function createItem(name) {
     <button class="remove-btn" onclick="removeItem(this)">X</button>
   `;
 
+  const priceInput = li.querySelector(".price");
+  const qtyInput = li.querySelector(".qty");
+  const checkbox = li.querySelector("input[type='checkbox']");
+
+  priceInput.value = price;
+  qtyInput.value = qty;
+  checkbox.checked = checked;
+
   document.getElementById("shoppingList").appendChild(li);
 
+  validateItem(li);
+  li.classList.toggle("checked", checkbox.checked);
   sortList();
 }
 
@@ -111,6 +124,8 @@ function toggleItem(checkbox) {
   li.classList.toggle("checked", checkbox.checked);
 
   sortList();
+  calculateTotal();
+  saveList();
 }
 
 function addItem() {
@@ -118,13 +133,15 @@ function addItem() {
   const itemName = input.value.trim();
   if (!itemName) return;
 
-  createItem(itemName);
+  createItem({ name: itemName });
   input.value = "";
+  saveList();
 }
 
 function removeItem(button) {
   button.parentElement.remove();
   calculateTotal();
+  saveList();
 }
 
 function calculateTotal() {
@@ -144,6 +161,60 @@ function calculateTotal() {
   });
 
   document.getElementById("totalValue").textContent = total.toFixed(2);
+}
+
+function getListData() {
+  return Array.from(document.querySelectorAll("#shoppingList li")).map(item => {
+    const checkbox = item.querySelector("input[type='checkbox']");
+    const priceInput = item.querySelector(".price");
+    const qtyInput = item.querySelector(".qty");
+    const name = item.querySelector(".item-name").textContent;
+
+    return {
+      name,
+      price: priceInput.value,
+      qty: qtyInput.value,
+      checked: checkbox.checked
+    };
+  });
+}
+
+function saveList() {
+  const listData = getListData();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(listData));
+}
+
+function loadList() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+
+  if (saved) {
+    try {
+      const savedItems = JSON.parse(saved);
+      if (Array.isArray(savedItems) && savedItems.length) {
+        savedItems.forEach(item => createItem(item));
+        calculateTotal();
+        return;
+      }
+    } catch (err) {
+      console.warn("Erro ao carregar lista do localStorage:", err);
+    }
+  }
+
+  defaultItems
+    .sort((a, b) => a.localeCompare(b, "pt-BR"))
+    .forEach(item => createItem({ name: item }));
+}
+
+function clearAll() {
+  if (!confirm("Deseja limpar todos os valores e reiniciar a lista?")) {
+    return;
+  }
+
+  localStorage.removeItem(STORAGE_KEY);
+  document.getElementById("shoppingList").innerHTML = "";
+  document.getElementById("searchInput").value = "";
+  document.getElementById("totalValue").textContent = "0.00";
+  loadList();
 }
 
 // 🔥 VALIDAÇÃO
@@ -171,6 +242,7 @@ function handleInputChange(input) {
 
   validateItem(li);
   calculateTotal();
+  saveList();
 }
 
 function filterItems() {
@@ -219,7 +291,5 @@ function sortList() {
   items.forEach(item => list.appendChild(item));
 }
 
-// 🔥 Inicializa já ordenado
-defaultItems
-  .sort((a, b) => a.localeCompare(b, "pt-BR"))
-  .forEach(item => createItem(item));
+// 🔥 Inicializa já carregando do localStorage
+loadList();
